@@ -650,6 +650,7 @@ async fn test_indexed_queries_match_the_table_through_fragment_reuse(
         IndexKind::BloomFilter,
         IndexKind::LabelList,
         IndexKind::NGram,
+        IndexKind::Inverted,
         IndexKind::IvfFlat
     )]
     kind: IndexKind,
@@ -661,20 +662,4 @@ async fn test_indexed_queries_match_the_table_through_fragment_reuse(
     form: HistoryForm,
 ) {
     run_contract(kind, form).await;
-}
-
-#[tokio::test]
-async fn test_full_text_search_matches_the_table_through_v0_fragment_reuse() {
-    run_contract(IndexKind::Inverted, HistoryForm::V0).await;
-}
-
-#[rstest]
-#[case::ordered(HistoryForm::TaggedOrdered)]
-#[case::partition(HistoryForm::TaggedPartition)]
-#[ignore = "https://github.com/lance-format/lance/issues/10623"]
-#[tokio::test]
-async fn test_full_text_search_matches_the_table_through_tagged_fragment_reuse(
-    #[case] form: HistoryForm,
-) {
-    run_contract(IndexKind::Inverted, form).await;
 }
