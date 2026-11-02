@@ -2578,8 +2578,8 @@ mod composite {
         );
     }
 
-    /// Transaction V2 has no compatibility contract, so a caller has to say so
-    /// before a composite operation is written into a dataset's history.
+    /// Transaction V2 is experimental for now, so a caller has to opt in before
+    /// a composite operation is written into a dataset's history.
     #[tokio::test]
     async fn test_committing_a_composite_operation_requires_opting_in() {
         let dataset = test_dataset(false).await;
